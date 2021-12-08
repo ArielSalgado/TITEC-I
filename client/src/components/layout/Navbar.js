@@ -1,30 +1,26 @@
 import React from 'react';
+import { Link, NavLink } from 'react-router-dom';
 
 const Navbar = () => {
     return (
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
         <div className="container">
-            <a class="navbar-brand" href="#">LOS PETES</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <a className="navbar-brand" href="/admin/">LOS PETES</a>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</a>
+            <div className="collapse navbar-collapse">
+                <ul className="navbar-nav mr-auto">
+                <li className="nav-item">
+                    <NavLink className="nav-link" exact to="/admin/">Eventos</NavLink>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                <li className="nav-item">
+                    <NavLink className="nav-link" exact to="/admin/usuarios">Usuarios</NavLink>
                 </li>
                 </ul>
             </div>
+            <Link className="btn btn-outline-light" to="/admin/crearEvento">Crear evento</Link>
         </div>
         </nav>
     );
