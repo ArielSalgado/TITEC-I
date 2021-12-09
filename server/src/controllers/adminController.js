@@ -3,7 +3,25 @@ const { mysql } = require('../config/database');
 const adminController = {};
 
 adminController.verEventos = (req, res) => {
-    res.send("ADMIN: VER EVENTOS");
+    let query = 'SELECT codigo_actividad, nombre_actividad, tipo, cupos, direccion, estado_actividad, DATE_FORMAT(fecha_inicio, "%d-%m-%Y") AS fecha_inicio, DATE_FORMAT(fecha_termino, "%d-%m-%Y") AS fecha_termino, modalidad FROM actividades;';
+    mysqlConn.query(query, (err, sql) => {
+        if(err) {
+            res.json(err);
+        }
+        res.send(sql);
+    });
+};
+
+adminController.verEvento = (req, res) => {
+    const id = req.params.id;
+
+    let query = 'SELECT * FROM actividades WHERE codigo_actividad = ' + id;
+    mysqlConn.query(query, (err, sql) => {
+        if(err) {
+            res.json(err);
+        }
+        res.send(sql);
+    });
 };
 
 adminController.crearEvento = (req, res) => {
@@ -26,55 +44,25 @@ adminController.crearEvento = (req, res) => {
     }, (err, sql) => {
         if(err) {
             res.json(err);
-        } else {
-            res.send(sql);
         }
+        res.send(sql);
     });
 };
-/* 
-
-{       
-    [rut_responsable , 
-        tipo , 
-        cupos, 
-        direccion, 
-        nombre_actividad , 
-        estado_actividad , 
-        descripción , 
-        fecha_inicio , 
-        fecha_termino , 
-        modalidad , 
-        requisitos , 
-        area]
-    
-
-        rut_responsable: rut_responsable, 
-        tipo: tipo, 
-        cupos: cupos, 
-        direccion: direccion, 
-        nombre_actividad: nombre_actividad, 
-        estado_actividad: estado_actividad, 
-        descripción: descripción, 
-        fecha_inicio: fecha_inicio, 
-        fecha_termino: fecha_termino, 
-        modalidad: modalidad, 
-        requisitos: requisitos, 
-        area: area
-    }
-
-*/
 
 adminController.modificarEvento = (req, res) => {
     res.send("ADMIN: MODIFICAR EVENTO");
 };
 
-adminController.eliminarEvento = (req, res) => {    
-    const codigo = req.param.codigo_actividad;
-    let query = "DELETE from actividades WHERE codigo_actividad = ?";
-    mysqlConn.query(query,[codigo], (err, sql) => {
+adminController.eliminarEvento = (req, res) => {
+    const codigo = req.params.id;
+    console.log(req);
+    let query = "DELETE FROM actividades WHERE codigo_actividad = " + codigo;
+    mysqlConn.query(query, (err, sql) => {
         if(err) {
+            console.log(err);
             res.json(err);
         }
+        console.log(sql);
         res.send(sql);
     });
 };
@@ -96,13 +84,21 @@ adminController.suspenderEvento = (req, res) => {
     });
 };
 
-adminController.aceptarSolicitud = (req, res) => {
-    
-    const {id_solicitud,estado} = req.body;
-    let inicio = "UPDATE solicitud_deportiva SET estado = "+estado;
-    let query = inicio + " WHERE id_solicitud = ?"
+adminController.verSolicitudes = (req, res) => {
+    let query = 'SELECT * FROM solicitud_deportiva WHERE estado = "pendiente"';
+    mysqlConn.query(query, (err, sql) => {
+        if(err) {
+            res.json(err);
+        }
+        res.send(sql);
+    });
+};
 
-    mysqlConn.query(query,[id_solicitud], (err, sql) => {
+adminController.aceptarSolicitud = (req, res) => {
+    const id = req.params.id;
+    let query = "UPDATE solicitud_deportiva SET estado = 'aceptada' WHERE id_solicitud = " + id;
+
+    mysqlConn.query(query, (err, sql) => {
         if(err) {
             res.json(err);
         }
@@ -111,8 +107,52 @@ adminController.aceptarSolicitud = (req, res) => {
 
 };
 
+adminController.rechazarSolicitud = (req, res) => {
+    const id = req.params.id;
+    let query = "UPDATE solicitud_deportiva SET estado = 'rechazada' WHERE id_solicitud = " + id;
+
+    mysqlConn.query(query, (err, sql) => {
+        if(err) {
+            res.json(err);
+        }
+        res.send(sql);
+    });
+};
+
+adminController.verUsuarios = (req, res) => {
+    /*
+    let query = 'SELECT';
+    mysqlConn.query(query, (err, sql) => {
+        if(err) {
+            res.json(err);
+        }
+        res.send(sql);
+    });
+    */
+};
+
+adminController.verUsuario = (req, res) => {
+    /*
+    const id = req.params.id;
+
+    let query = 'SELECT' + id;
+    mysqlConn.query(query, (err, sql) => {
+        if(err) {
+            res.json(err);
+        }
+        res.send(sql);
+    });
+    */
+};
+
+adminController.modificarUsuario = (req, res) => {
+    /*
+    res.send("ADMIN: MODIFICAR EVENTO");
+    */
+};
+
 adminController.crearUsuario = (req, res) => {
-    
+    /*
     const {correo,rut,contrasena,estado,codigo_tip_usa,codigo_estado} = req.body;
 
     let query = 'INSERT into usuario SET?';
@@ -130,7 +170,7 @@ adminController.crearUsuario = (req, res) => {
         }
         res.send(sql);
     });
-
+    */
 };
 
 module.exports = adminController;

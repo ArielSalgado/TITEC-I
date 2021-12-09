@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-const CrearEvento = () => {
+const EditarEvento = () => {
+    const { id } = useParams();
     const [evento, setEvento] = useState({
         rut_responsable: "14.222.313-3",
         tipo: "",
@@ -36,16 +38,24 @@ const CrearEvento = () => {
         setEvento({...evento, [e.target.name]: e.target.value});
     };
 
+    useEffect(() => {
+        cargarEvento()
+    }, []);
+
     const onSubmit = async e => {
         e.preventDefault();
-        console.log(evento);
-        await Axios.post("http://localhost:3001/api/admin/crearEvento", evento);
+        await Axios.post("http://localhost:3001/api/admin/modificarEvento", evento);
+    };
+
+    const cargarEvento = async () => {
+        const result = await Axios.get(`http://localhost:3001/api/admin/verEvento/${id}`, evento);
+        setEvento(result.data[0]);
     };
 
     return (
         <div className="container">
             <div className="w-75 mx-auto shadow p-5">
-                <h2 className="text-center mb-4">Crear Evento</h2>
+                <h2 className="text-center mb-4">Editar Evento</h2>
                 <form onSubmit={e => onSubmit(e)}>
                 <div className="form-group">
                     <label htmlFor="area">Area</label>
@@ -86,12 +96,12 @@ const CrearEvento = () => {
                 <div className="form-group">
                     <label htmlFor="fecha_inicio">Fecha de Inicio</label>
                     <input type="date" className="form-control form-control-lg"
-                    placeholder="Ingrese la fecha de inicio" name="fecha_inicio" value={fecha_inicio} onChange={e => onInputChange(e)} />
+                    placeholder="Ingrese la fecha de inicio" name="fecha_inicio" defaultValue={fecha_inicio} onChange={e => onInputChange(e)} />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="fecha_termino">Fecha de Térrmino</label>
+                    <label htmlFor="fecha_termino">Fecha de Término</label>
                     <input type="date" className="form-control form-control-lg"
-                    placeholder="Ingrese la fecha de término" name="fecha_termino" value={fecha_termino} onChange={e => onInputChange(e)} />
+                    placeholder="Ingrese la fecha de término" name="fecha_termino" defaultValue={fecha_termino} onChange={e => onInputChange(e)} />
                 </div>
                 <div className="form-group">
                    <label htmlFor="requisitos">Requisitos</label>
@@ -103,11 +113,11 @@ const CrearEvento = () => {
                     <input type="text" className="form-control form-control-lg"
                     placeholder="Ingrese una descripción" name="descripción" value={descripción} onChange={e => onInputChange(e)} />
                 </div>
-                <button className="btn btn-primary btn-block">Crear Evento</button>
+                <button className="btn btn-warning btn-block">Editar Evento</button>
                 </form>
             </div>
         </div>
     );
 };
 
-export default CrearEvento;
+export default EditarEvento;
