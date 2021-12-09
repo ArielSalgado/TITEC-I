@@ -50,7 +50,29 @@ adminController.crearEvento = (req, res) => {
 };
 
 adminController.modificarEvento = (req, res) => {
-    res.send("ADMIN: MODIFICAR EVENTO");
+    
+    const {codigo_actividad,rut_responsable, tipo, cupos, direccion, nombre_actividad, estado_actividad, descripción, fecha_inicio, fecha_termino, modalidad, requisitos, area} = req.body;
+
+    let query = "UPDATE actividades SET ? WHERE codigo_actividad = "+ codigo_actividad;
+    mysqlConn.query(query,{
+        rut_responsable: rut_responsable, 
+        tipo: tipo, 
+        cupos: cupos, 
+        direccion: direccion, 
+        nombre_actividad: nombre_actividad, 
+        estado_actividad: estado_actividad, 
+        descripción: descripción, 
+        fecha_inicio: fecha_inicio, 
+        fecha_termino: fecha_termino, 
+        modalidad: modalidad, 
+        requisitos: requisitos, 
+        area: area
+    }, (err, sql) => {
+        if(err) {
+            res.json(err);
+        }
+        res.send(sql);
+    });
 };
 
 adminController.eliminarEvento = (req, res) => {

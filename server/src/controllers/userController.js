@@ -2,15 +2,45 @@ const { mysql } = require('../config/database');
 const userController = {};
 
 userController.verEventos = (req, res) => {
-    res.send("USER: VER EVENTOS");
+    let query = 'SELECT codigo_actividad, nombre_actividad, tipo, cupos, direccion, estado_actividad, DATE_FORMAT(fecha_inicio, "%d-%m-%Y") AS fecha_inicio, DATE_FORMAT(fecha_termino, "%d-%m-%Y") AS fecha_termino, modalidad FROM actividades;';
+    mysqlConn.query(query, (err, sql) => {
+        if(err) {
+            res.json(err);
+        }
+        res.send(sql);
+    });
 };
 
 userController.crearInscripcion = (req, res) => {
-    res.send("USER: CREAR INSCRIPCION");
+    const {rut_postulante,codigo_actividad,fecha_inscripcion,datos_extra,obs_medica,estado} = req.body;
+
+    let query = 'INSERT into solicitud_deportiva SET ?'
+    mysqlConn.query(query,{
+        rut_postulante: rut_postulante,
+        codigo_actividad: codigo_actividad,
+        fecha_inscripcion: fecha_inscripcion,
+        datos_extra: datos_extra,
+        obs_medica: obs_medica,
+        estado: estado
+    }, (err, sql) => {
+        if(err) {
+            res.json(err);
+        }
+        res.send(sql);
+    });
 };
 
 userController.eliminarInscripcion = (req, res) => {
-    res.send("USER: ELIMINAR INSCRIPCION");
+    const {id_solicitud} = req.body;
+    let query = "DELETE FROM solicitud_deportiva WHERE id_solicitud = " + id_solicitud;
+    mysqlConn.query(query, (err, sql) => {
+        if(err) {
+            console.log(err);
+            res.json(err);
+        }
+        console.log(sql);
+        res.send(sql);
+    });
 };
 
 module.exports = userController;
