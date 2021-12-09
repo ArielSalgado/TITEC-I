@@ -3,7 +3,8 @@ import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import Navbar from './components/layout/Navbar';
 import Admin from './components/pages/admin/Admin';
-import Home from './components/pages/admin/Home';
+import Home from './components/pages/usuario/Home';
+import verEventoUsuario from './components/pages/usuario/verEvento';
 import Usuarios from './components/pages/admin/Usuarios';
 import VerUsuario from './components/pages/admin/VerUsuario';
 import CrearUsuario from './components/pages/admin/CrearUsuario';
@@ -23,6 +24,8 @@ function App() {
         
         <Switch>
           <Route exact path='/' component={Home} />
+          <Route exact path='/verEvento/:id' component={verEventoUsuario} />
+          
           <Route exact path='/admin/' component={Admin} />
           <Route exact path='/admin/usuarios' component={Usuarios} />
           <Route exact path='/admin/crearUsuario' component={CrearUsuario} />
@@ -32,6 +35,7 @@ function App() {
           <Route exact path='/admin/crearEvento' component={CrearEvento} />
           <Route exact path='/admin/editarEvento/:id' component={EditarEvento} />
           <Route exact path='/admin/solicitudes' component={Solicitudes} />
+
           <Route component={NotFound} />
         </Switch>
       </div>
