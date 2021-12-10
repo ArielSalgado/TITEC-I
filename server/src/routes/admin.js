@@ -4,6 +4,7 @@ const adminController = require('../controllers/adminController');
 
 router.get('/verEventos', adminController.verEventos);
 router.get('/verEvento/:id', adminController.verEvento);
+router.get('/verEditar/:id', adminController.verEditar);
 router.get('/verSolicitudes', adminController.verSolicitudes);
 router.get('/verUsuarios', adminController.verUsuarios);
 router.get('/verUsuario/:id', adminController.verUsuario);

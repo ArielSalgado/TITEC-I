@@ -48,7 +48,7 @@ const EditarEvento = () => {
     };
 
     const cargarEvento = async () => {
-        const result = await Axios.get(`http://localhost:3001/api/admin/verEvento/${id}`, evento);
+        const result = await Axios.get(`http://localhost:3001/api/admin/verEditar/${id}`, evento);
         setEvento(result.data[0]);
     };
 

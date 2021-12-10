@@ -23,7 +23,7 @@ const VerEvento = () => {
 
     useEffect(() => {
         cargarEvento();
-    });
+    }, []);
 
     const cargarEvento = async () => {
         const result = await Axios.get(`http://localhost:3001/api/admin/verEvento/${id}`, evento);

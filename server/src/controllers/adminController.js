@@ -3,11 +3,13 @@ const { mysql } = require('../config/database');
 const adminController = {};
 
 adminController.verEventos = (req, res) => {
-    let query = 'SELECT codigo_actividad, nombre_actividad, tipo, cupos, direccion, estado_actividad, DATE_FORMAT(fecha_inicio, "%d-%m-%Y") AS fecha_inicio, DATE_FORMAT(fecha_termino, "%d-%m-%Y") AS fecha_termino, modalidad FROM actividades;';
+    //Recordar sacar where de la consulta
+    let query = 'SELECT codigo_actividad, nombre_actividad, tipo, cupos, direccion, estado_actividad, DATE_FORMAT(fecha_inicio, "%d-%m-%Y") AS fecha_inicio, DATE_FORMAT(fecha_termino, "%d-%m-%Y") AS fecha_termino, modalidad FROM actividades Where codigo_actividad = 3;';
     mysqlConn.query(query, (err, sql) => {
         if(err) {
             res.json(err);
         }
+        
         res.send(sql);
     });
 };
@@ -15,11 +17,25 @@ adminController.verEventos = (req, res) => {
 adminController.verEvento = (req, res) => {
     const id = req.params.id;
 
-    let query = 'SELECT * FROM actividades WHERE codigo_actividad = ' + id;
+    let query = 'SELECT *,DATE_FORMAT(fecha_inicio, "%d-%m-%Y") AS fecha_inicio, DATE_FORMAT(fecha_termino, "%d-%m-%Y") AS fecha_termino FROM actividades WHERE codigo_actividad = ' + id;
     mysqlConn.query(query, (err, sql) => {
         if(err) {
             res.json(err);
         }
+        console.log(sql)
+        res.send(sql);
+    });
+};
+
+adminController.verEditar = (req, res) => {
+    const id = req.params.id;
+
+    let query = 'SELECT *,DATE_FORMAT(fecha_inicio, "%Y-%m-%d") AS fecha_inicio, DATE_FORMAT(fecha_termino, "%Y-%m-%d") AS fecha_termino FROM actividades WHERE codigo_actividad = ' + id;
+    mysqlConn.query(query, (err, sql) => {
+        if(err) {
+            res.json(err);
+        }
+        console.log(sql)
         res.send(sql);
     });
 };
