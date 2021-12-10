@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Axios from 'axios';
 
 const CrearSolicitud = () => {
@@ -8,7 +9,7 @@ const CrearSolicitud = () => {
         apellidos: "",
         telefono: "",
         fecha_nacimiento: "",
-        previsión: ""
+        prevision: ""
     });
 
     const { 
@@ -20,13 +21,15 @@ const CrearSolicitud = () => {
         prevision
     } = solicitud;
 
+    const { id } = useParams();
+
     const onInputChange = e => {
         setSolicitud({...solicitud, [e.target.name]: e.target.value});
     };
 
     const onSubmit = async e => {
         e.preventDefault();
-        await Axios.post("http://localhost:3001/api/user/crearSolicitud", solicitud);
+        await Axios.post(`http://localhost:3001/api/user/crearSolicitud/${id}`, solicitud);
     };
 
     return (
@@ -67,7 +70,7 @@ const CrearSolicitud = () => {
                         <option value="FONASA">FONASA</option>
                     </select>
                 </div>
-                <button className="btn btn-primary btn-block">Inscripcion</button>
+                <button className="btn btn-primary btn-block">Inscribirse</button>
                 </form>
             </div>
         </div>

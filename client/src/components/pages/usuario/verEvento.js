@@ -48,6 +48,7 @@ const VerEvento = () => {
                 <li className="list-group-item">Requisitos: {evento.requisitos}</li>
             </ul>
             <Link className="btn btn-primary" to={`/crearSolicitud/${evento.codigo_actividad}`} >Inscribirse</Link>
+            <Link className="btn btn-primary" to={`/cancelarSolicitud/${evento.codigo_actividad}`} >Desinscribirse</Link>
             <Link className="btn btn-primary" to="/">Volver</Link>
         </div>
     );

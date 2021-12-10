@@ -6,6 +6,7 @@ import Admin from './components/pages/admin/Admin';
 import Home from './components/pages/usuario/Home';
 import VerEventoUsuario from './components/pages/usuario/VerEvento';
 import CrearSolicitud from './components/pages/usuario/CrearSolicitud';
+import CancelarSolicitud from './components/pages/usuario/CancelarSolicitud';
 import Usuarios from './components/pages/admin/Usuarios';
 import VerUsuario from './components/pages/admin/VerUsuario';
 import CrearUsuario from './components/pages/admin/CrearUsuario';
@@ -27,6 +28,7 @@ function App() {
           <Route exact path='/' component={Home} />
           <Route exact path='/verEvento/:id' component={VerEventoUsuario} />
           <Route exact path='/crearSolicitud/:id' component={CrearSolicitud} />
+          <Route exact path='/cancelarSolicitud/:id' component={CancelarSolicitud} />
           
           <Route exact path='/admin/' component={Admin} />
           <Route exact path='/admin/usuarios' component={Usuarios} />

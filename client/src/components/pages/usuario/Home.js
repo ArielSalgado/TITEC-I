@@ -9,22 +9,18 @@ const Home = () => {
         cargarEventos();
     }, []);
 
-    const cargarEventos = async () => {
-        const response = await Axios.get("http://localhost:3001/api/user/verEventos");
-        createCards(response.data);
-    };
-
     var items = [];
 
-    const createCards = e => {
-        e.map((evento) => {
+    const cargarEventos = async () => {
+        const response = await Axios.get("http://localhost:3001/api/user/verEventos");
+        response.data.map((evento) => {
             console.log(evento);
             items.push(
                 <Card imgsrc={`${evento.codigo_actividad}.png`} nombre={evento.nombre_actividad} desc={evento.descripción} id_evento={evento.codigo_actividad} />
             );
         });
         setCards(items);
-    }
+    };
 
     return (
         <div className="container">
