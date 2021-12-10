@@ -222,25 +222,42 @@ adminController.verModUsuario = (req, res) => {
 };
 
 adminController.crearUsuario = (req, res) => {
-    /*
-    const {correo,rut,contrasena,estado,codigo_tip_usa,codigo_estado} = req.body;
-
-    let query = 'INSERT into usuario SET?';
     
-    mysqlConn.query(query,{
-        correo: correo,
+    const {rut,nombres,prevision,apellidos,numero_contacto,fecha_nacimiento,correo,contrasena} = req.body;
+    
+    
+    let query = 'INSERT into usuario SET ?';
+    
+    mysqlConn.query('INSERT into persona SET?',{
         rut: rut,
-        contrasena: contrasena,
-        estado: estado,
-        codigo_tip_usa: codigo_tip_usa,
-        codigo_estado: codigo_estado
-    },  (err, sql) => {
+        nombres: nombres,
+        apellidos: apellidos,
+        numero_contacto: numero_contacto,
+        fecha_nacimiento: fecha_nacimiento,
+        prevision: prevision
+    }, (err, sql1) => {
         if(err) {
-            res.json(err);
+            res.json(err);            
+        }else{                        
+            mysqlConn.query(query,{
+                correo: correo,
+                rut: rut,
+                contrasena: contrasena,
+                estado: "ACTIVO",
+                codigo_tip_usa: 2,
+                codigo_estado: 1
+            }, (err, sql2) => {
+                if(err) {
+                    res.json(err);
+                    console.log(err);          
+                }else{
+                    res.send(sql2); 
+                }
+                
+            });
         }
-        res.send(sql);
+        
     });
-    */
 };
 
 module.exports = adminController;
