@@ -4,7 +4,8 @@ import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import Navbar from './components/layout/Navbar';
 import Admin from './components/pages/admin/Admin';
 import Home from './components/pages/usuario/Home';
-import verEventoUsuario from './components/pages/usuario/verEvento';
+import VerEventoUsuario from './components/pages/usuario/VerEvento';
+import CrearSolicitud from './components/pages/usuario/CrearSolicitud';
 import Usuarios from './components/pages/admin/Usuarios';
 import VerUsuario from './components/pages/admin/VerUsuario';
 import CrearUsuario from './components/pages/admin/CrearUsuario';
@@ -24,7 +25,8 @@ function App() {
         
         <Switch>
           <Route exact path='/' component={Home} />
-          <Route exact path='/verEvento/:id' component={verEventoUsuario} />
+          <Route exact path='/verEvento/:id' component={VerEventoUsuario} />
+          <Route exact path='/crearSolicitud/:id' component={CrearSolicitud} />
           
           <Route exact path='/admin/' component={Admin} />
           <Route exact path='/admin/usuarios' component={Usuarios} />

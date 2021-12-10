@@ -3,36 +3,39 @@ import Card from '../../layout/Card';
 import Axios from 'axios';
 
 const Home = () => {
-    /*
-    const [eventos, setEventos] = useState([]);
     const [cards, setCards] = useState([]);
-    var items = [];
-
+    
     useEffect(() => {
         cargarEventos();
-        cargarCards();
     }, []);
 
     const cargarEventos = async () => {
         const response = await Axios.get("http://localhost:3001/api/user/verEventos");
-        setEventos(response.data());
+        createCards(response.data);
     };
 
-    const cargarCards = async () => {
-        eventos.map((evento) => {
+    var items = [];
+
+    const createCards = e => {
+        e.map((evento) => {
+            console.log(evento);
             items.push(
-                <Card imgsrc={evento.ruta} nombre={evento.nombre} desc={evento.desc} id_evento={evento.id} />
+                <Card imgsrc={`${evento.codigo_actividad}.png`} nombre={evento.nombre_actividad} desc={evento.descripción} id_evento={evento.codigo_actividad} />
             );
         });
+        setCards(items);
     }
-    */
 
     return (
         <div className="container">
             <div className="py-4">
                 <div className='container-fluid d-flex justify-content-center'>
                     <div className='row'>
-                        <Card imgsrc={"logo512.png"} nombre={"futbol"} desc={"Descripcion ..."} id_evento={"1"} />
+                        {
+                            cards ?
+                                cards :
+                                cards
+                        }
                     </div>
                 </div>
             </div>
