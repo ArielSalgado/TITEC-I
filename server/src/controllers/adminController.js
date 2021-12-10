@@ -22,7 +22,7 @@ adminController.verEvento = (req, res) => {
         if(err) {
             res.json(err);
         }
-        console.log(sql)
+        
         res.send(sql);
     });
 };
@@ -35,7 +35,7 @@ adminController.verEditar = (req, res) => {
         if(err) {
             res.json(err);
         }
-        console.log(sql)
+        
         res.send(sql);
         
     });
@@ -170,17 +170,16 @@ adminController.verUsuarios = (req, res) => {
 };
 
 adminController.verUsuario = (req, res) => {
-    /*
     const id = req.params.id;
-
-    let query = 'SELECT' + id;
-    mysqlConn.query(query, (err, sql) => {
+    
+    let query = 'SELECT p.rut, p.nombres,p.prevision, p.apellidos, p.numero_contacto,DATE_FORMAT(p.fecha_nacimiento, "%d-%m-%Y") AS fecha_nacimiento, u.correo, u.estado FROM persona as p JOIN usuario as u WHERE (p.rut = u.rut) AND (p.rut = ?)';
+    mysqlConn.query(query,[id],(err, sql) => {
         if(err) {
             res.json(err);
-        }
-        res.send(sql);
+        }else{        
+        console.log(sql);
+        res.send(sql);}
     });
-    */
 };
 
 adminController.modificarUsuario = (req, res) => {

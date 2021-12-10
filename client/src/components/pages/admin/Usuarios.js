@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Usuarios = () => {
 
@@ -14,6 +15,7 @@ const Usuarios = () => {
         const response = await Axios.get("http://localhost:3001/api/admin/verUsuarios");
         setUsuarios(response.data);
     };
+    
 
     return (
         <div className="container">
@@ -41,7 +43,8 @@ const Usuarios = () => {
                             <td>{usuario.correo}</td>
                             <td>{usuario.estado}</td>                           
                             <td>
-                                <p>algo</p>
+                                <Link className="btn btn-primary" to={`/admin/verUsuario/${usuario.rut}`}>Ver</Link>
+                                <Link className="btn btn-outline-primary" to={`/admin/editarUsuario/${usuario.rut}`}>Editar</Link>                                
                             </td>
                         </tr>
                     ))}
