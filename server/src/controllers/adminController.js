@@ -3,8 +3,8 @@ const { mysql } = require('../config/database');
 const adminController = {};
 
 adminController.verEventos = (req, res) => {
-    //Recordar sacar where de la consulta
-    let query = 'SELECT codigo_actividad, nombre_actividad, tipo, cupos, direccion, estado_actividad, DATE_FORMAT(fecha_inicio, "%d-%m-%Y") AS fecha_inicio, DATE_FORMAT(fecha_termino, "%d-%m-%Y") AS fecha_termino, modalidad FROM actividades Where codigo_actividad = 3;';
+    
+    let query = 'SELECT codigo_actividad, nombre_actividad, tipo, cupos, direccion, estado_actividad, DATE_FORMAT(fecha_inicio, "%d-%m-%Y") AS fecha_inicio, DATE_FORMAT(fecha_termino, "%d-%m-%Y") AS fecha_termino, modalidad FROM actividades;';
     mysqlConn.query(query, (err, sql) => {
         if(err) {
             res.json(err);
