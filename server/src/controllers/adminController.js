@@ -37,6 +37,7 @@ adminController.verEditar = (req, res) => {
         }
         console.log(sql)
         res.send(sql);
+        
     });
 };
 
@@ -87,7 +88,7 @@ adminController.modificarEvento = (req, res) => {
         if(err) {
             res.json(err);
         }
-        res.send(sql);
+        res.send(sql);        
     });
 };
 
@@ -158,15 +159,14 @@ adminController.rechazarSolicitud = (req, res) => {
 };
 
 adminController.verUsuarios = (req, res) => {
-    /*
-    let query = 'SELECT';
+    
+    let query = 'SELECT rut,nombres,apellidos,numero_contacto,DATE_FORMAT(fecha_nacimiento, "%d-%m-%Y") AS fecha_nacimiento,prevision FROM persona;';
     mysqlConn.query(query, (err, sql) => {
         if(err) {
             res.json(err);
-        }
-        res.send(sql);
+        }else{        
+        res.send(sql);}
     });
-    */
 };
 
 adminController.verUsuario = (req, res) => {
