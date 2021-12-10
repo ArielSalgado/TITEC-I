@@ -12,9 +12,9 @@ const Card = props => {
                 <div className='card-body text-dark'>
                     <h4 className='card-title'>{props.nombre}</h4>
                     <p className='card-text text-secondary'>
-                        {props.desc}
+                        {`${props.desc}`}
                     </p>
-                    <Link className='btn tbn-outline-success' to={`/verEvento/${props.id_evento}`}>Ver Detalles</Link>
+                    <Link className='btn btn-outline-success' to={`/verEvento/${props.id_evento}`}>Ver Detalles</Link>
                 </div>
             </div>
         </div>

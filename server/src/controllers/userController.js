@@ -1,8 +1,21 @@
+const mysqlConn = require('../config/database');
 const { mysql } = require('../config/database');
 const userController = {};
 
 userController.verEventos = (req, res) => {
-    let query = 'SELECT codigo_actividad, nombre_actividad, tipo, cupos, direccion, estado_actividad, DATE_FORMAT(fecha_inicio, "%d-%m-%Y") AS fecha_inicio, DATE_FORMAT(fecha_termino, "%d-%m-%Y") AS fecha_termino, modalidad FROM actividades;';
+    let query = 'SELECT codigo_actividad, nombre_actividad, tipo, cupos, direccion, estado_actividad, DATE_FORMAT(fecha_inicio, "%d-%m-%Y") AS fecha_inicio, DATE_FORMAT(fecha_termino, "%d-%m-%Y") AS fecha_termino, modalidad, descripción FROM actividades;';
+    mysqlConn.query(query, (err, sql) => {
+        if(err) {
+            res.json(err);
+        }
+        res.send(sql);
+    });
+};
+
+userController.verEvento = (req, res) => {
+    const id = req.params.id;
+
+    let query = 'SELECT *, DATE_FORMAT(fecha_inicio, "%d-%m-%Y") AS fecha_inicio, DATE_FORMAT(fecha_termino, "%d-%m-%Y") AS fecha_termino FROM actividades WHERE codigo_actividad = ' + id;
     mysqlConn.query(query, (err, sql) => {
         if(err) {
             res.json(err);
