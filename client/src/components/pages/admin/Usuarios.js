@@ -24,10 +24,10 @@ const Usuarios = () => {
                     <tr>
                         <th scope="col">Rut</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Apellido</th>
-                        <th scope="col">Fecha de nacimiento</th>
-                        <th scope="col">N° Contacto</th>                        
-                        <th scope="col">Previsión</th>                        
+                        <th scope="col">Apellido</th>                                                
+                        <th scope="col">N° Contacto</th>
+                        <th scope="col">Correo</th>                        
+                        <th scope="col">Estado</th>                        
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -36,10 +36,10 @@ const Usuarios = () => {
                         <tr key={index}>
                             <td>{usuario.rut}</td>
                             <td>{usuario.nombres}</td>
-                            <td>{usuario.apellidos}</td>
-                            <td>{usuario.fecha_nacimiento}</td>
+                            <td>{usuario.apellidos}</td>                            
                             <td>{usuario.numero_contacto}</td>
-                            <td>{usuario.prevision}</td>                           
+                            <td>{usuario.correo}</td>
+                            <td>{usuario.estado}</td>                           
                             <td>
                                 <p>algo</p>
                             </td>

@@ -24,7 +24,7 @@ userController.verEvento = (req, res) => {
     });
 };
 
-userController.crearInscripcion = (req, res) => {
+userController.crearSolicitud = (req, res) => {
     const {rut_postulante,codigo_actividad,fecha_inscripcion,datos_extra,obs_medica,estado} = req.body;
 
     let query = 'INSERT into solicitud_deportiva SET ?'
@@ -43,7 +43,7 @@ userController.crearInscripcion = (req, res) => {
     });
 };
 
-userController.eliminarInscripcion = (req, res) => {
+userController.eliminarSolicitud = (req, res) => {
     const {id_solicitud} = req.body;
     let query = "DELETE FROM solicitud_deportiva WHERE id_solicitud = " + id_solicitud;
     mysqlConn.query(query, (err, sql) => {

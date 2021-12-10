@@ -124,7 +124,7 @@ adminController.suspenderEvento = (req, res) => {
 };
 
 adminController.verSolicitudes = (req, res) => {
-    let query = 'SELECT * FROM solicitud_deportiva WHERE estado = "pendiente"';
+    let query = 'SELECT *,DATE_FORMAT(fecha_inscripcion, "%d-%m-%Y") AS fecha_inscripcion FROM solicitud_deportiva WHERE estado = "pendiente"';
     mysqlConn.query(query, (err, sql) => {
         if(err) {
             res.json(err);
@@ -160,7 +160,7 @@ adminController.rechazarSolicitud = (req, res) => {
 
 adminController.verUsuarios = (req, res) => {
     
-    let query = 'SELECT rut,nombres,apellidos,numero_contacto,DATE_FORMAT(fecha_nacimiento, "%d-%m-%Y") AS fecha_nacimiento,prevision FROM persona;';
+    let query = 'SELECT p.rut, p.nombres, p.apellidos, p.numero_contacto, u.correo, u.estado FROM persona as p JOIN usuario as u WHERE p.rut = u.rut;';
     mysqlConn.query(query, (err, sql) => {
         if(err) {
             res.json(err);

@@ -5,8 +5,8 @@ const userController = require('../controllers/userController');
 router.get('/verEventos', userController.verEventos);
 router.get('/verEvento/:id', userController.verEvento);
 
-router.post('/crearInscripcion', userController.crearInscripcion);
+router.post('/crearSolicitud', userController.crearSolicitud);
 
-router.delete('/eliminarInscripcion', userController.eliminarInscripcion);
+router.delete('/eliminarSolicitud', userController.eliminarSolicitud);
 
 module.exports = router;
