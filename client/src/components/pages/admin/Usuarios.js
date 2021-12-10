@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const Usuarios = () => {
 
@@ -17,40 +18,33 @@ const Usuarios = () => {
     return (
         <div className="container">
             <div className="py-4">
-                <h1>Usuario</h1>
+                <h1>Usuarios</h1>
                 <table className="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">Col 1</th>
-                        <th scope="col">Col 2</th>
-                        <th scope="col">Col 3</th>
-                        <th scope="col">Col 4</th>
-                        <th scope="col">Col 5</th>
-                        <th scope="col">Col 6</th>
-                        <th scope="col">Col 7</th>
+                        <th scope="col">Rut</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Fecha de nacimiento</th>
+                        <th scope="col">N° Contacto</th>                        
+                        <th scope="col">Previsión</th>                        
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                    /*eventos.map((evento, index) => (
+                    {usuarios.map((usuario, index) => (
                         <tr key={index}>
-                            <td>{evento.nombre_actividad}</td>
-                            <td>{evento.tipo}</td>
-                            <td>{evento.cupos}</td>
-                            <td>{evento.direccion}</td>
-                            <td>{evento.estado_actividad}</td>
-                            <td>{"Desde " + evento.fecha_inicio + " hasta " + evento.fecha_termino}</td>
-                            <td>{evento.modalidad}</td>
+                            <td>{usuario.rut}</td>
+                            <td>{usuario.nombres}</td>
+                            <td>{usuario.apellidos}</td>
+                            <td>{usuario.fecha_nacimiento}</td>
+                            <td>{usuario.numero_contacto}</td>
+                            <td>{usuario.prevision}</td>                           
                             <td>
-                                <Link className="btn btn-primary" to={`/admin/verEvento/${evento.codigo_actividad}`}>Ver</Link>
-                                <Link className="btn btn-outline-primary" to={`/admin/editarEvento/${evento.codigo_actividad}`}>Editar</Link>
-                                <Link className="btn btn-danger" onClick={() => eliminarEvento(evento.codigo_actividad)}>Eliminar</Link>
+                                <p>algo</p>
                             </td>
                         </tr>
-                    ))
-                    */
-                    }
+                    ))}
                 </tbody>
                 </table>
             </div>
