@@ -19,7 +19,8 @@ const CancelarSolicitud = () => {
 
     const onSubmit = async e => {
         e.preventDefault();
-        await Axios.delete(`http://localhost:3001/api/user/eliminarSolicitud/${id}`, solicitud);
+        console.log(solicitud);
+        await Axios.post(`http://localhost:3001/api/user/eliminarSolicitud/${id}`, solicitud);
     };
 
     return (

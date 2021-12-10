@@ -25,34 +25,83 @@ userController.verEvento = (req, res) => {
 };
 
 userController.crearSolicitud = (req, res) => {
-    const {rut_postulante,codigo_actividad,fecha_inscripcion,datos_extra,obs_medica,estado} = req.body;
-
-    let query = 'INSERT into solicitud_deportiva SET ?'
-    mysqlConn.query(query,{
-        rut_postulante: rut_postulante,
-        codigo_actividad: codigo_actividad,
-        fecha_inscripcion: fecha_inscripcion,
-        datos_extra: datos_extra,
-        obs_medica: obs_medica,
-        estado: estado
-    }, (err, sql) => {
+    const {rut,nombres,prevision,apellidos,telefono,fecha_nacimiento} = req.body;
+    const id = req.params.id;
+    let query1 = 'SELECT * FROM persona WHERE rut = ?'; 
+    let query2 = 'INSERT into solicitud_deportiva (rut_postulante,codigo_actividad,fecha_inscripcion,datos_extra,obs_medica,estado) VALUES (?,?,CURDATE(),"NONE","NONE","pendiente")';
+    
+    mysqlConn.query(query1,[rut], (err, sql) => {
         if(err) {
-            res.json(err);
+            res.json(err);            
+        }else{
+            if(!sql[0]){
+                mysqlConn.query('INSERT into persona SET?',{
+                    rut: rut,
+                    nombres: nombres,
+                    apellidos: apellidos,
+                    numero_contacto: telefono,
+                    fecha_nacimiento: fecha_nacimiento,
+                    prevision: prevision
+                }, (err, sql1) => {
+                    if(err) {
+                        res.json(err);            
+                    }else{                        
+                        mysqlConn.query(query2,[
+                            rut ,
+                            id 
+                        ], (err, sql2) => {
+                            if(err) {
+                                res.json(err);
+                                console.log(err);          
+                            }else{
+                                res.send(sql2); 
+                            }
+                            
+                        });
+                    }
+                    
+                });
+            }else{
+                mysqlConn.query(query2,[rut,id], (err, sql2) => {
+                    if(err) {
+                        res.json(err); 
+                        console.log(err);           
+                    }else{
+                        res.send(sql2); 
+                    }
+                    
+                });
+               
+            }
+            
         }
-        res.send(sql);
+        
     });
 };
 
+/*
+mysqlConn.query(query1,[rut], (err, sql) => {
+    if(err) {
+        res.json(err);            
+    }else{
+        
+    }
+    
+}); */
+
+
 userController.eliminarSolicitud = (req, res) => {
-    const {id_solicitud} = req.body;
-    let query = "DELETE FROM solicitud_deportiva WHERE id_solicitud = " + id_solicitud;
-    mysqlConn.query(query, (err, sql) => {
+    const id = req.params.id;
+    const {rut} = req.body;
+    let query = "DELETE FROM solicitud_deportiva WHERE codigo_actividad = ? and rut_postulante = ?";   
+    mysqlConn.query(query,[id,rut], (err, sql) => {
         if(err) {
             console.log(err);
             res.json(err);
-        }
-        console.log(sql);
-        res.send(sql);
+        }else{
+            
+            res.send(sql);
+        }        
     });
 };
 

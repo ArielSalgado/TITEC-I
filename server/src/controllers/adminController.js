@@ -176,16 +176,49 @@ adminController.verUsuario = (req, res) => {
     mysqlConn.query(query,[id],(err, sql) => {
         if(err) {
             res.json(err);
-        }else{        
-        console.log(sql);
+        }else{ 
         res.send(sql);}
     });
 };
 
 adminController.modificarUsuario = (req, res) => {
-    /*
-    res.send("ADMIN: MODIFICAR EVENTO");
-    */
+    const {rut,nombres,apellidos,fecha_nacimiento,numero_contacto,correo,prevision} = req.body;    
+    let query1 = "UPDATE persona SET ? WHERE rut = '"+ rut+"'";
+    let query2 = "UPDATE usuario SET ? WHERE rut = '"+ rut+"'";
+    mysqlConn.query(query1,{
+        nombres: nombres,
+        apellidos: apellidos,
+        fecha_nacimiento: fecha_nacimiento,
+        numero_contacto: numero_contacto,
+        prevision: prevision
+    }, (err, sql1) => {
+        if(err) {
+            res.json(err);            
+        }else{            
+            mysqlConn.query(query2,{
+                correo: correo
+            }, (err, sql2) => {
+                if(err) {
+                    res.json(err);
+                }else{
+                    res.send(sql1);
+                }        
+            });
+        }        
+    });
+};
+
+adminController.verModUsuario = (req, res) => {
+    const id = req.params.id;
+    let query = 'SELECT p.rut, p.nombres,p.prevision, p.apellidos, p.numero_contacto,DATE_FORMAT(p.fecha_nacimiento, "%Y-%m-%d") AS fecha_nacimiento, u.correo, u.estado FROM persona as p JOIN usuario as u WHERE (p.rut = u.rut) AND (p.rut = ?)';
+    mysqlConn.query(query,[id], (err, sql) => {
+        if(err) {
+            res.json(err);
+        }else{
+        
+        res.send(sql);
+        }
+    });
 };
 
 adminController.crearUsuario = (req, res) => {

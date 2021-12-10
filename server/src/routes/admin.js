@@ -8,6 +8,7 @@ router.get('/verEditar/:id', adminController.verEditar);
 router.get('/verSolicitudes', adminController.verSolicitudes);
 router.get('/verUsuarios', adminController.verUsuarios);
 router.get('/verUsuario/:id', adminController.verUsuario);
+router.get('/verModUsuario/:id', adminController.verModUsuario);
 
 router.post('/crearEvento', adminController.crearEvento);
 router.post('/modificarEvento', adminController.modificarEvento);
@@ -15,7 +16,7 @@ router.post('/suspenderEvento', adminController.suspenderEvento);
 router.post('/aceptarSolicitud/:id', adminController.aceptarSolicitud);
 router.post('/rechazarSolicitud/:id', adminController.rechazarSolicitud);
 router.post('/crearUsuario', adminController.crearUsuario);
-router.post('/modificarUsuario/:id', adminController.modificarUsuario);
+router.post('/modificarUsuario', adminController.modificarUsuario);
 
 router.delete('/eliminarEvento/:id', adminController.eliminarEvento);
 
